@@ -1,105 +1,129 @@
-/*
- * Class Player
- * @param {object} id
- * @param {string} name
- * @param {int} health
- * @param {int} power
- */
-
-class Player {
-  constructor(id, name, health, power) {
-    this.id = id;
-    this.x = 600;
-    this.y = 850;
-    this.name = name;
-    this.health = health;
-    this.power = power;
-    this.bullets = [];
+document.addEventListener("DOMContentLoaded", function () {
+  /*
+   * Class Player
+   * @param {object} id
+   * @param {string} name
+   * @param {int} health
+   * @param {int} power
+   */
+  class Player {
+    constructor(id, name, health, score) {
+      this.id = id;
+      this.x = 400;
+      this.y = 550;
+      this.name = name;
+      this.health = health;
+      this.score = score;
+      this.bullets = [];
+    }
   }
 
-  display() {
-    // Left and Right boundaries
-    if (this.x < 0) {
-      this.x = 0;
-    } else if (this.x > 1150) {
-      this.x = 1150;
-    }
+  const socket = io();
+  const div = document.getElementById("container");
+  let player = null;
+  let elementPlayer = null;
+  let pos = { x: 0, y: 0 };
 
-    // Top and Bottom boundaries
-    if (this.y < 0) {
-      this.y = 0;
-    } else if (this.y > 850) {
-      this.y = 860;
-    }
+  socket.on("connect", () => {
+    player = new Player(socket.id, "Player", 100, 0);
 
-    this.id.style.left = this.x + "px";
-    this.id.style.top = this.y + "px";
-  }
+    // create element for player
+    let playerDiv = document.createElement("div");
+    playerDiv.id = player.id;
+    playerDiv.className = "sprite-hero";
+    playerDiv.innerHTML = `<span >${player.name}</span>`;
+    playerDiv.style.left = player.x + "px";
+    playerDiv.style.top = player.y + "px";
 
-  // Move the player
-  move(event) {
-    switch (event) {
+    // add the playerDiv to container
+    div.appendChild(playerDiv);
+    elementPlayer = document.getElementById(player.id);
+
+    // set the player's position to variable pos
+    pos.x = player.x;
+    pos.y = player.y;
+  });
+
+  function eventMovePlayer(event) {
+    switch (event.keyCode) {
       case 87:
-        this.y -= 10; // Up or W
+        pos.y -= 10; // Up or W
         break;
       case 83:
-        this.y += 10; // Down or S
+        pos.y += 10; // Down or S
         break;
       case 65:
-        this.x -= 10; // Left or A
+        pos.x -= 10; // Left or A
         break;
       case 68:
-        this.x += 10; // Right or D
+        pos.x += 10; // Right or D
         break;
       case 32:
-        this.fire();
+        // spacebar
+        eventFireBullet();
+        drawBullets();
+
+        break;
+      default:
+        console.log("Invalid Key");
         break;
     }
+    // check boundaries then move player if not out of bounds
+    checkBoundaries();
   }
 
-  // fire a bullet
-  fire() {
-    console.log("fire");
-    this.bullets.push({ x: this.x + 441, y: this.y + 15});
+  // fire event when player presses spacebar
+  function eventFireBullet() {
+    player.bullets.push({ x: player.x + 46 , y: player.y + 10 });
   }
-
-  // update the bullets
-  displaybullets() {
+  // draw bullets
+  function drawBullets() {
     let output = "";
-    for (let bullet of this.bullets) {
-      console.log("Bullet Pos:", bullet.x, bullet.y);
-      output +=
-        "<div class='sprite-bullet' style='top:" +
-        bullet.y +
-        "px; left:" +
-        bullet.x +
-        "px;'></div>";
+    for (let bullet of player.bullets) {
+      output += `<div class="sprite-bullet" 
+                 style="left:${bullet.x}px;
+                 top:${bullet.y}px;">
+                 </div>`;
     }
     document.getElementById("bullets").innerHTML = output;
   }
-}
 
-const hero = document.getElementById("hero");
-const player = new Player(hero, "Player 1", 100, 10);
-
-function moveBullets() {
-  for (let bullet of player.bullets) {
-    bullet.y -= 5;
-    if (bullet.y < 30) {
-      player.bullets.shift();
+  function moveBullets() {
+    for (let bullet of player.bullets) {
+      bullet.y -= 1;
+      if (bullet.y < 20 && player.bullets.length > 0) {
+        player.bullets.shift();
+      }
+      drawBullets();
     }
   }
-}
 
-function gameLoop() {
-  player.displaybullets();
-  moveBullets();
-}
+  function loop() {
+    moveBullets();
+  }
 
-function eventKeyDown(event) {
-  player.move(event.keyCode);
-  player.display();
-}
+  setInterval(loop, 2);
 
-var startGame = setInterval(gameLoop, 30);
-document.addEventListener("keydown", eventKeyDown);
+  function checkBoundaries() {
+    if (pos.x < 0) {
+      pos.x = 0;
+    } else if (pos.x > 850) {
+      pos.x = 850;
+    }
+
+    if (pos.y < 0) {
+      pos.y = 0;
+    } else if (pos.y > 560) {
+      pos.y = 560;
+    }
+
+    // set the element's position to pos and obj player's position to pos
+    elementPlayer.style.left = pos.x + "px";
+    elementPlayer.style.top = pos.y + "px";
+    player.x = pos.x;
+    player.y = pos.y;
+  }
+
+  // event listener for keydown
+  document.addEventListener("keydown", eventMovePlayer);
+});

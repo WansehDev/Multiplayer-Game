@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -5,34 +6,53 @@
 
 body {
     background-color: black;
+    font-family: 'Press Start 2P', cursive;
 }
 
 span {
     color: white;
     position: absolute;
     width: max-content;
+    font-size: 20px;
     margin-left: 50px;
-    letter-spacing: 1px;
+}
+
+.txt-sm {
+    font-size: 20px;
+}
+
+ol {
+    width: fit-content;
+    margin: 20px 50px;
+}
+
+
+li {
+    font-size: 15px;
+    margin-bottom: 10px;
 }
 
 #container {
-    width: 1200px;
-    height: 900px;
+    display: inline-block;
+    width: 900px;
+    height: 600px;
     background: url('/images/bg.gif') no-repeat;
     background-size: 100%  100%;
-    margin: 20px auto;
-    border: 5px solid white ;
+    margin: 20px 20px;
+    border: 7px solid white ;
     border-radius: 10px;
+    vertical-align: top;
 }
 
 
 .sprite-hero {
+    display: inline-block;
     background: url('/images/1942.gif') no-repeat -42px -111px;
     width: 47px;
 	height: 40px;
     position: relative;
-    top: 850px;
-    left: 600px;
+    left: 400px;
+    top: 550px;
 }
 
 .sprite-bullet {
@@ -40,6 +60,38 @@ span {
 	width: 12px;
 	height: 12px;
     position: absolute;
-    top: 865px; /* + 15 */
-    left: 1030px;
 }
+
+.sprite-enemy {
+    background: url('/images/1942.gif') no-repeat -34px -10px;
+	width: 23px;
+	height: 16px;
+}
+
+#scoreboard {
+    vertical-align: top;
+    display: inline-block;
+}
+
+#score {
+    border: 8px solid white;
+    border-radius: 10px;
+    margin: 20px 0px;
+    padding: 7px;
+    font-size: 30px;
+    width: 400px;
+    color: white;
+}
+
+#leaderboards {
+    border: 8px solid white;
+    border-radius: 10px;
+    margin: 20px 0px;
+    padding: 7px;
+    font-size: 30px;
+    width: 400px;
+    height: 400px;
+    color: white;
+}
+
+

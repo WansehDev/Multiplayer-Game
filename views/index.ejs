@@ -5,15 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" text="text/css" href="/stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script src="/js/player.js"></script>
     <title>1942</title>
 </head>
 <body>
     <div id="container">
-        <div id="hero" class="sprite-hero"><span>Player 1</span></div>
         <div id="bullets"></div>
+        <div id="heroes"></div>
+        <div id="enemies"></div>
     </div>
-
+    <div id="scoreboard"> 
+        <div id="score">SCORE: 1000</div>
+        <div id="leaderboards">
+            <p class="txt-sm">LEADERBOARDS: </p>
+            <ol>
+                <li>Lance - 1000</li>
+                <li>Marga - 2000</li>
+            </ol>
+        </div>
+    </div>
+   
     <!-- Player Movement Script -->
-    <script src="/js/player.js"></script>
+
 </body>
 </html>
