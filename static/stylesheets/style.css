@@ -9,13 +9,14 @@ body {
     font-family: 'Press Start 2P', cursive;
 }
 
-span {
+.nametag {
     color: white;
     position: absolute;
     width: max-content;
-    font-size: 20px;
+    font-size: 10px;
     margin-left: 50px;
 }
+
 
 .txt-sm {
     font-size: 20px;
@@ -62,15 +63,33 @@ li {
     position: absolute;
 }
 
-.sprite-enemy {
+
+.sprite-enemy1 {
     background: url('/images/1942.gif') no-repeat -34px -10px;
 	width: 23px;
 	height: 16px;
+    position: absolute;
+}
+
+.sprite-enemy2 {
+    background: url('/images/1942.gif') no-repeat -124px -14px;
+	width: 23px;
+	height: 13px;
+    position: absolute;
+}
+
+.sprite-enemy3 {
+    background: url('/images/1942.gif') no-repeat -66px -15px;
+	width: 23px;
+	height: 13px;
+    position: absolute;
+
 }
 
 #scoreboard {
     vertical-align: top;
     display: inline-block;
+    position: fixed;
 }
 
 #score {
@@ -83,6 +102,13 @@ li {
     color: white;
 }
 
+.scoretag {
+    color: white;
+    width: max-content;
+    font-size: 30px;
+}
+
+
 #leaderboards {
     border: 8px solid white;
     border-radius: 10px;
@@ -90,8 +116,18 @@ li {
     padding: 7px;
     font-size: 30px;
     width: 400px;
-    height: 400px;
+    height: 200px;
     color: white;
 }
 
+#instructions {
+    display: inline-block;
+    color: white;
+    width: 500px;
+}
+
+.ins {
+    line-height: 20px;
+    padding: 5px;
+}
 

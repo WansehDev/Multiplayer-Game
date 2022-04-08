@@ -7,7 +7,7 @@
     <link rel="stylesheet" text="text/css" href="/stylesheets/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script src="/js/player.js"></script>
+    <script type="text/javascript" src="/js/player.js"></script>
     <title>1942</title>
 </head>
 <body>
@@ -17,17 +17,19 @@
         <div id="enemies"></div>
     </div>
     <div id="scoreboard"> 
-        <div id="score">SCORE: 1000</div>
+        <div id="score">SCORE:<span id="scoretag" class="scoretag">0</span></div>
         <div id="leaderboards">
-            <p class="txt-sm">LEADERBOARDS: </p>
-            <ol>
-                <li>Lance - 1000</li>
-                <li>Marga - 2000</li>
+            <p class="txt-sm">Online Players: </p>
+            <ol id="online-list">
+              
             </ol>
         </div>
-    </div>
-   
-    <!-- Player Movement Script -->
+        <div id="instructions">
+            <p class="ins"> First Player to Score 10000 Points wins!</p>
+            <p class="ins">Have Fun!</p>
+        </div>
 
+    </div>
+    
 </body>
 </html>
